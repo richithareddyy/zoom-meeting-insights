@@ -6,7 +6,7 @@ takes a transcript and turns it into one shared brief — a summary, the action
 items with owners, the decisions, the open questions, and a quick view of who
 spoke how much.
 
-**Live demo:** _link goes here once the deploy finishes_
+**Live demo:** https://richithareddyy-zoom-meeting-insights-app-gr5imo.streamlit.app
 
 ## Running it locally
 
