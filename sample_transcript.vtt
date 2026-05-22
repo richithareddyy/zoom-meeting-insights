@@ -1,0 +1,117 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:06.500
+Priya: Okay, I think we're all here. Thanks for jumping on, everyone. This is our weekly check-in for the thesis cohort.
+
+2
+00:00:06.800 --> 00:00:13.200
+Priya: Quick agenda — we'll go around with updates, then talk about the IRB submission deadline, and finally the showcase prep.
+
+3
+00:00:13.500 --> 00:00:21.000
+Marcus: Sounds good. I can start. So last week I finished the literature review draft, it's about thirty pages right now, probably needs trimming.
+
+4
+00:00:21.300 --> 00:00:27.800
+Marcus: My advisor wants me to focus more on the human-AI interaction angle and less on the pure ML benchmark stuff.
+
+5
+00:00:28.100 --> 00:00:33.500
+Priya: That tracks with what Dr. Chen said in the last cohort meeting. Did you get a chance to look at the Suresh and Guttag paper she shared?
+
+6
+00:00:33.800 --> 00:00:38.000
+Marcus: Not yet, it's on my list for this week. I'll have notes by Friday.
+
+7
+00:00:38.300 --> 00:00:45.500
+Aisha: I can go next. I've been blocked on participant recruitment. The IRB approval is still pending and I can't email anyone until that clears.
+
+8
+00:00:45.800 --> 00:00:51.200
+Aisha: I submitted the amendment two weeks ago. Anyone have a contact in the IRB office who can give us a status update?
+
+9
+00:00:51.500 --> 00:00:57.800
+Priya: I can reach out to Dr. Kim — she sits on the board. Send me your protocol number after the call and I'll ping her today.
+
+10
+00:00:58.100 --> 00:01:02.500
+Aisha: Perfect, thank you. I'll send the number right after this.
+
+11
+00:01:02.800 --> 00:01:09.200
+Jordan: Okay my turn. Quick update — the prototype is mostly working. I got the transcript ingestion piece wired up over the weekend.
+
+12
+00:01:09.500 --> 00:01:16.000
+Jordan: Still need to figure out how I'm handling PII. Right now I'm doing regex redaction locally before anything hits the API, which feels right.
+
+13
+00:01:16.300 --> 00:01:22.500
+Marcus: That's a good call. Have you thought about what happens with names? Like if someone says "thanks Priya" in the middle of a sentence?
+
+14
+00:01:22.800 --> 00:01:29.000
+Jordan: Yeah I'm wrestling with that. Option one is full pseudonymization, option two is just leaving first names. I think for the demo I'll show both.
+
+15
+00:01:29.300 --> 00:01:35.500
+Priya: I'd vote for showing both — it makes the privacy tradeoffs concrete for the audience instead of just talking about them.
+
+16
+00:01:35.800 --> 00:01:39.200
+Jordan: Agreed. I'll have both modes working by Thursday.
+
+17
+00:01:39.500 --> 00:01:46.000
+Priya: Great. Let's lock that in — Jordan ships dual privacy modes by Thursday. Aisha, you'll send me the IRB protocol number right after this.
+
+18
+00:01:46.300 --> 00:01:52.500
+Priya: Marcus, you'll review the Suresh and Guttag paper by Friday. Anyone have anything else before we move to the showcase?
+
+19
+00:01:52.800 --> 00:01:59.000
+Aisha: One quick thing — are we doing the showcase in person or hybrid? My family is visiting that week and I might need to dial in.
+
+20
+00:01:59.300 --> 00:02:05.500
+Priya: I think hybrid is fine. Last year half the cohort presented remotely. I'll confirm with the Next Lab coordinator and follow up by tomorrow.
+
+21
+00:02:05.800 --> 00:02:11.000
+Marcus: One concern on showcase — do we know the time slot yet? I have a conflict on the morning of the 28th.
+
+22
+00:02:11.300 --> 00:02:16.500
+Priya: Not yet, but I'll ask. If it's morning we'll see what we can do. Worst case you present second day.
+
+23
+00:02:16.800 --> 00:02:22.000
+Jordan: Quick question on the showcase format — are we doing live demos or pre-recorded? My prototype works but it's a little flaky.
+
+24
+00:02:22.300 --> 00:02:28.500
+Priya: I'd push for live if you can — it's more compelling. But have a backup video ready. That's what I'm doing.
+
+25
+00:02:28.800 --> 00:02:33.000
+Jordan: Okay, makes sense. I'll record a backup the night before.
+
+26
+00:02:33.300 --> 00:02:39.500
+Priya: Alright, I think we're good. Let's wrap. Same time next week. Reach out in Slack if anything blocks you before then.
+
+27
+00:02:39.800 --> 00:02:42.000
+Aisha: Thanks everyone. Bye!
+
+28
+00:02:42.300 --> 00:02:43.500
+Marcus: See you.
+
+29
+00:02:43.800 --> 00:02:45.000
+Jordan: Later.
