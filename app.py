@@ -23,7 +23,7 @@ st.write(
     "summary, action items, decisions, and participant breakdown."
 )
 
-def _get_default_key() -> str:
+def _get_secret_key() -> str:
     try:
         if "GEMINI_API_KEY" in st.secrets:
             return st.secrets["GEMINI_API_KEY"]
@@ -31,15 +31,20 @@ def _get_default_key() -> str:
         pass
     return os.getenv("GEMINI_API_KEY", "")
 
+_secret_key = _get_secret_key()
+
 # ── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.header("Setup")
-    api_key = st.text_input(
-        "Gemini API key",
-        value=_get_default_key(),
-        type="password",
-        help="Get one free at aistudio.google.com/apikey",
-    )
+    if _secret_key:
+        st.success("API key configured by host. Ready to analyze.")
+        api_key = _secret_key
+    else:
+        api_key = st.text_input(
+            "Gemini API key",
+            type="password",
+            help="Get one free at aistudio.google.com/apikey",
+        )
     model_name = st.selectbox(
         "Model",
         [
