@@ -1,84 +1,86 @@
 # Meeting Insights
 
-Turns a Zoom meeting transcript into a shared post-session brief: summary,
-action items, decisions, open questions, and a participant breakdown.
+A small prototype I built to play with the post-meeting problem: everyone walks
+out of a Zoom call with a slightly different memory of what got decided. This
+takes a transcript and turns it into one shared brief — a summary, the action
+items with owners, the decisions, the open questions, and a quick view of who
+spoke how much.
 
-Built as a prototype to explore where AI can be genuinely useful for
-meeting follow-up, where the privacy trade-offs sit, and how the same
-analysis pipeline plugs into Zoom Video SDK as a capture source.
+**Live demo:** _link goes here once the deploy finishes_
 
-## What it does
-
-- Accepts a Zoom `.vtt` transcript (uploaded or pasted)
-- Redacts emails, phone numbers, and optionally speaker names — locally,
-  before any API call
-- Sends the redacted transcript to Google Gemini in a single structured
-  JSON call
-- Surfaces the results in a Streamlit dashboard:
-  - Executive summary and key topics
-  - Action items with owner and due date
-  - Decisions and open questions
-  - Participant speaking share (with chart)
-  - Suggested follow-ups
-- Lets users download insights as JSON
-
-## Stack
-
-- Python 3.9+, Streamlit
-- Google Gemini via the `google-genai` SDK (structured JSON output)
-- Local regex redaction (no PII leaves the user's machine without their
-  having seen the redacted version first)
-
-## Run locally
+## Running it locally
 
 ```bash
-git clone <this-repo-url>
-cd zoom-insights
+git clone https://github.com/richithareddyy/zoom-meeting-insights
+cd zoom-meeting-insights
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 streamlit run app.py
 ```
 
-The app opens at `http://localhost:8501`. Paste your Gemini API key into
-the sidebar (free at <https://aistudio.google.com/apikey>) and click
-**Use sample transcript** → **Analyze meeting**.
+You'll need a Gemini API key. Free one at https://aistudio.google.com/apikey,
+takes about a minute. Paste it into the sidebar. There's a sample transcript
+in the repo so you can try it without recording anything.
 
-## Documentation
+## How it actually works
 
-- [docs/architecture.md](docs/architecture.md) — system layout, the three
-  pipeline layers, and why the boundaries are drawn where they are
-- [docs/design_decisions.md](docs/design_decisions.md) — user-research
-  findings from five grad-student interviews and how they shaped the
-  feature set
-- [docs/zoom_video_sdk_integration.md](docs/zoom_video_sdk_integration.md)
-  — how the Zoom Video SDK plugs in as a capture source, and why v1
-  demos on file uploads
+Three steps:
 
-## Repo layout
+1. You upload a `.vtt` transcript. Zoom produces these when you turn on cloud
+   recording with audio transcription enabled.
+2. The app strips emails, phone numbers, and optionally speaker names. This
+   happens locally, in the same Python process that's rendering the page,
+   before anything is sent to Gemini. There's an expander in the UI that
+   shows both the original transcript and the redacted version side by side,
+   so you can verify what actually leaves your machine.
+3. One Gemini call returns the whole insight payload as structured JSON. The
+   UI breaks that JSON into tabs.
 
-```
-app.py                            Streamlit app
-zoom_capture.py                   Zoom Video SDK integration sketch
-sample_transcript.vtt             Demo input
-requirements.txt                  Python dependencies
-docs/
-  architecture.md
-  design_decisions.md
-  zoom_video_sdk_integration.md
-```
+I tried to keep the LLM part small on purpose. Multi-step prompt chains are
+fragile, every hop is another chance to fail, and they cost more for not much
+benefit on a task that's basically "read this and tell me what happened."
 
-## Privacy
+## Why these particular choices
 
-Redaction happens in the same Python process that renders the page,
-before the transcript is handed to the Gemini SDK. The *Privacy
-preprocessing* expander shows both the original transcript (local only)
-and the redacted version (sent to the API) side by side, so the user
-can verify what left their machine.
+I interviewed five grad students before scoping this. What surprised me:
+none of them wanted the transcript. They wanted a shorter "who agreed to do
+what" artifact, and a few wanted the raw transcript to stay on their laptop.
+That's why action items are the first tab, each one has an owner and a due
+date, and the redaction step has its own UI panel where you can check what's
+being sent before you send it.
 
-## Status
+The other thing that came up: name sensitivity is uneven. One person wanted
+credit for everything she committed to. Another preferred to be anonymized in
+anything that might get shared. So pseudonymization is a per-user toggle
+instead of a default.
 
-v1 prototype. v1.5 (Zoom cloud-recording transcripts) and v2 (live SDK
-transcription) are documented in
-[docs/zoom_video_sdk_integration.md](docs/zoom_video_sdk_integration.md)
-but not yet implemented.
+More on this in [docs/design_decisions.md](docs/design_decisions.md).
+
+## The Zoom Video SDK part
+
+Live capture from the Video SDK is sketched in `zoom_capture.py` but isn't
+wired into the demo. I ran out of runway to build the streaming client
+reliably enough to demo on, so the prototype runs on file upload instead.
+The downstream pipeline (redact, analyze, render) doesn't care where the
+transcript came from, so adding cloud-recording fetch or live capture later
+is a swap at the top of the file, not a rewrite.
+
+The integration plan and the auth model are in
+[docs/zoom_video_sdk_integration.md](docs/zoom_video_sdk_integration.md).
+
+## What's in this repo
+
+- `app.py` — the Streamlit app
+- `zoom_capture.py` — Zoom SDK integration sketch
+- `sample_transcript.vtt` — the demo transcript
+- `docs/architecture.md` — how the pieces fit together
+- `docs/design_decisions.md` — what the user interviews changed
+- `docs/zoom_video_sdk_integration.md` — what v1.5 and v2 look like
+
+## Things I haven't done
+
+There's no database — insights live in the Streamlit session and you can
+download them as JSON. There's no auth either; the public demo uses my
+Gemini key (configured via Streamlit secrets), and the local version takes
+yours. If this ever grew into something real, both of those need work.
