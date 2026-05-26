@@ -83,4 +83,4 @@ The integration plan and the auth model are in
 There's no database — insights live in the Streamlit session and you can
 download them as JSON. There's no auth either; the public demo uses my
 Gemini key (configured via Streamlit secrets), and the local version takes
-yours. If this ever grew into something real, both of those need work.
+yours. If this ever grew into something real, both of those need work..
