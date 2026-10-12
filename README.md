@@ -1,6 +1,6 @@
 # Meeting Insights
 
-Turn a meeting transcript into a shared brief: action items, decisions, open questions, a summary, and a view of speaker participation. This Streamlit prototype works with uploaded WebVTT transcripts.
+Turn a meeting transcript into a shared brief: action items, decisions, open questions, a summary, and a view of speaker participation. This Streamlit prototype accepts WebVTT or text files, pasted transcripts, and an included sample.
 
 **Python · Streamlit · Gemini**
 
@@ -33,7 +33,7 @@ Use a [Gemini API key](https://aistudio.google.com/apikey). The sidebar accepts 
 
 1. Upload a `.vtt` transcript, such as one exported from a Zoom cloud recording with audio transcription.
 2. Review the redacted text and choose whether to pseudonymize speaker names.
-3. The application sends the processed transcript to Gemini and receives a structured JSON response.
+3. The application sends the processed transcript to Gemini in one JSON-mode request. It parses the response as JSON but does not validate a strict output schema.
 4. Browse the results in the interface and download the JSON report.
 
 Redaction runs in the Python process hosting the app. When running locally, that process is on your computer; on the hosted demo, uploaded transcripts are processed on the server. Redaction is a best-effort step and does not guarantee that every identifying detail is removed.
@@ -54,6 +54,10 @@ The project’s design notes describe interviews with five graduate students. Th
 | `zoom_capture.py` | Sketch of a future Zoom SDK capture integration |
 | `sample_transcript.vtt` | Sample input for trying the workflow |
 | `docs/` | Architecture, design notes, and integration plan |
+
+## Checking the prototype
+
+No automated tests are committed. Use the sample transcript to check parsing, redaction toggles, action-item ownership, and JSON export. Speaker participation percentages are estimated by the model from text; the app strips VTT timestamps and does not measure speaking time from audio.
 
 ## Limitations
 
