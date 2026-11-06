@@ -2,9 +2,9 @@
 
 Turn a meeting transcript into a brief with action items, decisions, open questions, and a summary. This is a transcript-based Streamlit prototype, not a live Zoom recorder.
 
-**Python · Streamlit · Gemini**
+Built with Python, Streamlit, and Gemini.
 
-The workflow is deliberately small: load a transcript, review the redacted version, make one structured model request, and export the result as JSON. Design notes describe feedback from five graduate students that shaped the focus on clear task ownership and visible redaction.
+Before scoping it, I interviewed five graduate students. None wanted the transcript after a meeting; all five wanted a list of who agreed to do what, and several were uneasy about raw transcripts sitting in shared channels. So the workflow is deliberately small: load a transcript, review the redacted version, make one structured model request, and export the result as JSON.
 
 ## Run locally
 
