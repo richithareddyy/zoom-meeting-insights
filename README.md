@@ -1,6 +1,6 @@
 # Meeting Insights
 
-Turn a meeting transcript into a brief with action items, decisions, open questions, and a summary. This is a transcript-based Streamlit prototype, not a live Zoom recorder.
+A meeting ends, and you need to know what was decided and who agreed to do what without rereading the whole transcript. Meeting Insights takes an uploaded or pasted transcript and turns it into a brief with action items, decisions, open questions, and a summary. It’s a Streamlit prototype for reviewing transcripts after a meeting, not a live Zoom recorder.
 
 Built with Python, Streamlit, and Gemini.
 
