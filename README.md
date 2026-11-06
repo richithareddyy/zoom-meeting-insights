@@ -4,7 +4,7 @@ A meeting ends, and you need to know what was decided and who agreed to do what 
 
 Built with Python, Streamlit, and Gemini.
 
-Before scoping it, I interviewed five graduate students. None wanted the transcript after a meeting; all five wanted a list of who agreed to do what, and several were uneasy about raw transcripts sitting in shared channels. So the workflow is deliberately small: load a transcript, review the redacted version, make one structured model request, and export the result as JSON.
+I interviewed five graduate students before building it. All five wanted to know who had agreed to do what, and several were uncomfortable leaving raw transcripts in shared channels. That shaped the workflow: load a transcript, review the version with identifying details removed, request a brief, and export it as JSON.
 
 ## Run locally
 
@@ -23,9 +23,9 @@ On Windows, use `venv\Scripts\activate`. Supply a Gemini API key in the sidebar 
 
 ## What happens to the transcript
 
-Email addresses and phone numbers are redacted before the Gemini request, with optional speaker-name pseudonymization. You can compare the original and processed text first. Redaction runs in the Python hosting process—on the server when using the hosted demo—and does not guarantee removal of every identifying detail.
+The app removes email addresses and phone numbers before sending text to Gemini. You can also replace speaker names with labels and compare the processed text with the original. This happens in Python—on the server for the hosted demo—and can miss identifying details.
 
-Results remain in the session unless downloaded. The app parses the response as JSON but does not enforce a strict output schema. Speaker participation is estimated from text, not measured from audio timing.
+Results stay in the session unless downloaded. The app reads the model’s JSON response but does not strictly validate every field. Participation estimates use transcript text, not measured speaking time.
 
 ## Checking it
 
